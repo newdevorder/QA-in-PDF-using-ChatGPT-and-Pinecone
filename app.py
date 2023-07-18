@@ -64,7 +64,7 @@ def retrieval_answer(query):
 
 def main():
     st.title("The New Dev Order Chatbot")
-    st.info("[-]")
+    st.info("i.e. How do I generate solutions leveraging The New Dev Order? How do I make money as a Developer in the new dev order?")
 
     text_input = st.text_input("Ask your query...") 
     if st.button("Ask Query"):
