@@ -70,7 +70,7 @@ def main():
     st.info("- How do I make money as a UX Designer in The New Dev Order?")
     st.info("- How do I join The New Dev Order?")    
     text_input = st.text_input("What would you like to know? Type your question below...") 
-    if st.button("Ask Query"):
+    if st.button("Ask Question"):
         if len(text_input)>0:
             st.info("Your Query: " + text_input)
             answer = retrieval_answer(text_input)
