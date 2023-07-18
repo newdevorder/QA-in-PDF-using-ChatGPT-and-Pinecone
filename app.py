@@ -66,13 +66,11 @@ def main():
     st.title("The New Dev Order Chatbot")
 
     text_input = st.text_input("Ask your query...") 
-    text_input = st.text_input(".")
     if st.button("Ask Query"):
         if len(text_input)>0:
             st.info("Your Query: " + text_input)
             answer = retrieval_answer(text_input)
             st.success(answer)
-            text_input = st.text_input("[-]")
 
 if __name__ == "__main__":
     main()
