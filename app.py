@@ -66,9 +66,9 @@ def main():
     st.title("The New Dev Order Chatbot")
     st.info("You can ask a question like...")
     st.info("- How do I generate solutions leveraging The New Dev Order?")
-    st.info("- How might I leverage the do I make money as a Developer in the new dev order?")
-    st.info("- How do I make money as a UX Designer?")
-    
+    st.info("- How might I leverage the do I make money as a Developer in The New Dev Order?")
+    st.info("- How do I make money as a UX Designer in The New Dev Order?")
+    st.info("- How do I join The New Dev Order?")    
     text_input = st.text_input("Ask your query...") 
     if st.button("Ask Query"):
         if len(text_input)>0:
