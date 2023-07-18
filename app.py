@@ -64,8 +64,11 @@ def retrieval_answer(query):
 
 def main():
     st.title("The New Dev Order Chatbot")
-    st.info("i.e. How do I generate solutions leveraging The New Dev Order? How do I make money as a Developer in the new dev order?")
-
+    st.info("You can ask a question like...")
+    st.info("- How do I generate solutions leveraging The New Dev Order?")
+    st.info("- How might I leverage the do I make money as a Developer in the new dev order?")
+    st.info("- How do I make money as a UX Designer?")
+    
     text_input = st.text_input("Ask your query...") 
     if st.button("Ask Query"):
         if len(text_input)>0:
