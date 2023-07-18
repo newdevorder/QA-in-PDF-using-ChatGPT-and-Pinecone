@@ -72,6 +72,7 @@ def main():
             st.info("Your Query: " + text_input)
             answer = retrieval_answer(text_input)
             st.success(answer)
+            text_input = st.text_input("[-]")
 
 if __name__ == "__main__":
     main()
