@@ -85,7 +85,7 @@ def main():
             # Use ElevenLabs API to generate speech and play it
             api_key = os.getenv("ELEVENLABS_API_KEY")
             if api_key:
-                generate_and_play(audio_text=answer, api_key=api_key)
+                generate_and_play(audio_text="ello aw waw wii", api_key=api_key)
             else:
                 st.error("ElevenLabs API key not found. Please set the 'ELEVENLABS_API_KEY' environment variable.")
 
