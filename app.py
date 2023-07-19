@@ -8,6 +8,7 @@ from langchain.chains import RetrievalQA
 from langchain.chat_models import ChatOpenAI
 import streamlit as st
 from dotenv import load_dotenv
+from elevenlabs import generate, play
 
 load_dotenv()
 
@@ -79,6 +80,18 @@ def main():
             st.info("Your Query: " + text_input)
             answer = retrieval_answer(text_input)
             st.success(answer)
+            # New Code
+            generate_and_play(audio_text=answer)
+            # End of New Code
+
+# New Code
+def generate_and_play(audio_text):
+    # Generate audio using ElevenLabs
+    audio = generate(text=audio_text, voice="Bella", model="eleven_monolingual_v1")
+    
+    # Play the audio
+    play(audio)
+# End of New Code
 
 if __name__ == "__main__":
     main()
