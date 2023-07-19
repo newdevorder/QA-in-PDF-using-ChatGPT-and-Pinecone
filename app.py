@@ -10,6 +10,7 @@ import streamlit as st
 from dotenv import load_dotenv
 from elevenlabs import generate, play
 
+
 load_dotenv()
 
 
@@ -81,13 +82,19 @@ def main():
             answer = retrieval_answer(text_input)
             st.success(answer)
             # New Code
-            generate_and_play(audio_text=answer)
+            # Use ElevenLabs API to generate speech and play it
+            api_key = os.getenv("ELEVENLABS_API_KEY")
+            if api_key:
+                generate_and_play(audio_text=answer, api_key=api_key)
+            else:
+                st.error("ElevenLabs API key not found. Please set the 'ELEVENLABS_API_KEY' environment variable.")
+
             # End of New Code
 
 # New Code
-def generate_and_play(audio_text):
+def generate_and_play(audio_text, api_key):
     # Generate audio using ElevenLabs
-    audio = generate(text=audio_text, voice="Bella", model="eleven_monolingual_v1")
+    audio = generate(text=audio_text, voice="Bella", model="eleven_monolingual_v1", api_key=api_key)
     
     # Play the audio
     play(audio)
