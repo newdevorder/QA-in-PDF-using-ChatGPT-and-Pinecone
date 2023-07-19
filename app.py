@@ -64,6 +64,10 @@ def retrieval_answer(query):
 
 def main():
     st.title("The New Dev Order Chatbot")
+    # Add the image using st.image()
+    image_url = "https://raw.githubusercontent.com/newdevorder/QA-in-PDF-using-ChatGPT-and-Pinecone/main/image04wfe.jpeg"
+    st.image(image_url, caption="Your Image Caption", use_column_width=True)
+
     st.info("You can ask a question like...")
     st.info("- How do I generate solutions leveraging The New Dev Order?")
     st.info("- How might I leverage the do I make money as a Developer in The New Dev Order?")
