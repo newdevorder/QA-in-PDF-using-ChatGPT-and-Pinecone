@@ -9,3 +9,4 @@ streamlit
 tiktoken
 elevenlabs==0.2.19
 ffmpeg
+ffplay
