@@ -116,7 +116,7 @@ def main():
             else:
                 st.error("ElevenLabs API key not found. Please set the 'ELEVENLABS_API_KEY' environment variable.")
 
-            st.success(condensed_answer)
+            st.success(answer)
             # End of New Code
 
 # New Code
