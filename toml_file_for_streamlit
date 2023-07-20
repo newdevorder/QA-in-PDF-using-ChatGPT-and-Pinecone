@@ -1,0 +1,24 @@
+# Everything in this section will be available as an environment variable 
+
+# OpenAI secrets
+OPENAI_API_KEY = ""
+
+# Temperature: Valid value is between 0 (Not Creative) to 1 (Full Creativity)
+CREATIVITY = 0.7 
+
+# Pinecone secrets
+PINECONE_API_KEY = ""
+PINECONE_ENVIRONMENT = ""
+PINECONE_INDEX = ""
+
+# ElevenLabs API key
+ELEVENLABS_API_KEY = ""
+
+# Apply Stability and Similarity Boost
+FINE_TUNE_VOICES = false
+
+# Value between 0 to 1. Lower value implies a highly expressive voice.
+STABILITY=0.1
+
+# Value between 0 to 1. Higher value implies a high fidility voice close to real person's voice.
+SIMILARITY_BOOST=0.75 
