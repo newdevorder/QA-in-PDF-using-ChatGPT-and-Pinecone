@@ -81,24 +81,6 @@ def main():
             st.info("Your Query: " + text_input)
             answer = retrieval_answer(text_input)
             st.success(answer)
-            # New Code
-            # Use ElevenLabs API to generate speech and play it
-            api_key = os.getenv("ELEVENLABS_API_KEY")
-            if api_key:
-                generate_and_play(audio_text="ello aw waw wii", api_key=api_key)
-            else:
-                st.error("ElevenLabs API key not found. Please set the 'ELEVENLABS_API_KEY' environment variable.")
-
-            # End of New Code
-
-# New Code
-def generate_and_play(audio_text, api_key):
-    # Generate audio using ElevenLabs
-    audio = generate(text=audio_text, voice="Bella", model="eleven_monolingual_v1", api_key=api_key)
-    
-    # Play the audio
-    play(audio)
-# End of New Code
 
 if __name__ == "__main__":
     main()
