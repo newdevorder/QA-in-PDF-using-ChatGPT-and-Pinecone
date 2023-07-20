@@ -66,7 +66,7 @@ def retrieval_answer(query):
 
 def main():
     # NEW CODE
-    
+    image_url = "https://raw.githubusercontent.com/newdevorder/QA-in-PDF-using-ChatGPT-and-Pinecone/main/image04wfe.jpeg"
     # Define custom CSS to center the image and adjust its size
     custom_css = """
     <style>
