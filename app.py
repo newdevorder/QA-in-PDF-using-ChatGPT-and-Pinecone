@@ -87,9 +87,6 @@ def main():
     # END OF NEW CODE
 
     st.title("The New Dev Order Chatbot")
-    # Add the image using st.image()
-    image_url = "https://raw.githubusercontent.com/newdevorder/QA-in-PDF-using-ChatGPT-and-Pinecone/main/image04wfe.jpeg"
-    st.image(image_url, caption="Your Image Caption", use_column_width=True)
 
     # NEW CODE
     # Wrap the image inside a div with the "centeredImage" class
