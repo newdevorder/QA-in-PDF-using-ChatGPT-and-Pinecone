@@ -65,10 +65,36 @@ def retrieval_answer(query):
     return result
 
 def main():
+    # NEW CODE
+    
+    # Define custom CSS to center the image and adjust its size
+    custom_css = """
+    <style>
+    .centeredImage {
+    display: flex;
+    justify-content: center;
+    }
+
+    .centeredImage img {
+    max-width: 10%; /* Change this value to adjust the image size */
+    }
+    </style>
+    """
+
+    # Display the custom CSS
+    st.markdown(custom_css, unsafe_allow_html=True)
+    
+    # END OF NEW CODE
+
     st.title("The New Dev Order Chatbot")
     # Add the image using st.image()
     image_url = "https://raw.githubusercontent.com/newdevorder/QA-in-PDF-using-ChatGPT-and-Pinecone/main/image04wfe.jpeg"
     st.image(image_url, caption="Your Image Caption", use_column_width=True)
+
+    # NEW CODE
+    # Wrap the image inside a div with the "centeredImage" class
+    st.markdown('<div class="centeredImage"><img src="' + image_url + '"></div>', unsafe_allow_html=True)
+    # END OF NEW CODE
 
     st.info("You can ask a question like...")
     st.info("- How do I generate solutions leveraging The New Dev Order?")
