@@ -1,6 +1,6 @@
+import os
 from langchain.document_loaders import DirectoryLoader
 from langchain.text_splitter import CharacterTextSplitter
-import os
 import pinecone 
 from langchain.vectorstores import Pinecone
 from langchain.embeddings.openai import OpenAIEmbeddings
@@ -8,18 +8,20 @@ from langchain.chains import RetrievalQA
 from langchain.chat_models import ChatOpenAI
 import streamlit as st
 from dotenv import load_dotenv
-from elevenlabs import generate, play
+from elevenlabs import generate, set_api_key
+from elevenlabs.api import Voices
 
 
 load_dotenv()
 
-
 PINECONE_API_KEY = os.getenv('PINECONE_API_KEY')
 PINECONE_ENV = os.getenv('PINECONE_ENV')
 OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
-
-os.environ['OPENAI_API_KEY'] = OPENAI_API_KEY
-
+CREATIVITY = os.getenv('CREATIVITY')
+ELEVENLABS_API_KEY = os.getenv('ELEVENLABS_API_KEY')
+STABILITY = os.getenv('STABILITY')
+SIMILARITY_BOOST = os.getenv('SIMILARITY_BOOST')
+FINE_TUNE_VOICES = os.getenv('FINE_TUNE_VOICES')
 
 def doc_preprocessing():
     loader = DirectoryLoader(
@@ -51,7 +53,10 @@ def embedding_db():
     )
     return doc_db
 
-llm = ChatOpenAI()
+llm = ChatOpenAI(
+    openai_api_key=OPENAI_API_KEY,
+    temperature=CREATIVITY
+)
 doc_db = embedding_db()
 
 def retrieval_answer(query):
@@ -103,16 +108,40 @@ def main():
         if len(text_input)>0:
             st.info("Your Query: " + text_input)
             answer = retrieval_answer(text_input)
-            st.success(answer)
+            condensed_answer = answer[0:2]
+            # New Code
+            # Use ElevenLabs API to generate speech and play it
+            if ELEVENLABS_API_KEY:
+                generate_and_play(audio_text=condensed_answer)
+            else:
+                st.error("ElevenLabs API key not found. Please set the 'ELEVENLABS_API_KEY' environment variable.")
+
+            st.success(condensed_answer)
+            # End of New Code
+
+# New Code
+def generate_and_play(audio_text):
+    set_api_key(ELEVENLABS_API_KEY)
+    # Generate audio using ElevenLabs
+    audio = generate(text=audio_text, voice=getVoice("Alli"), 
+                     model="eleven_monolingual_v1")
+
+    # Play the audio
+    st.audio(audio, format="audio/wav", start_time=0, sample_rate=None)
+# End of New Code
+
+def getVoice(voice_name):
+    # Get available voices from api.
+    voices = Voices.from_api()
+    found_voices = [voice for voice in voices if voice.name == voice_name]
+    if len(found_voices) >= 1:
+        found_voice=found_voices[0]
+        if(FINE_TUNE_VOICES):
+            found_voice.settings.stability = STABILITY
+            found_voice.settings.similarity_boost = SIMILARITY_BOOST
+        return found_voices[0]
+    else:
+        return voices[0]
 
 if __name__ == "__main__":
     main()
-
-    
-
-
-
-
-
-
-
