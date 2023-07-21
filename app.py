@@ -22,6 +22,7 @@ ELEVENLABS_API_KEY = os.getenv('ELEVENLABS_API_KEY')
 STABILITY = os.getenv('STABILITY')
 SIMILARITY_BOOST = os.getenv('SIMILARITY_BOOST')
 FINE_TUNE_VOICES = os.getenv('FINE_TUNE_VOICES')
+ENABLE_ELEVENTLABS = os.getenv('ENABLE_ELEVENTLABS')
 
 def doc_preprocessing():
     loader = DirectoryLoader(
@@ -108,13 +109,16 @@ def main():
         if len(text_input)>0:
             st.info("Your Query: " + text_input)
             answer = retrieval_answer(text_input)
-            condensed_answer = answer[0:2]
-            # New Code
-            # Use ElevenLabs API to generate speech and play it
-            if ELEVENLABS_API_KEY:
-                generate_and_play(audio_text=condensed_answer)
-            else:
-                st.error("ElevenLabs API key not found. Please set the 'ELEVENLABS_API_KEY' environment variable.")
+            
+            # Enable or Disable Eleven Labs
+            if ENABLE_ELEVENTLABS:
+                condensed_answer = answer[0:2]
+                # New Code
+                # Use ElevenLabs API to generate speech and play it
+                if ELEVENLABS_API_KEY:
+                    generate_and_play(audio_text=condensed_answer)
+                else:
+                    st.error("ElevenLabs API key not found. Please set the 'ELEVENLABS_API_KEY' environment variable.")
 
             st.success(answer)
             # End of New Code
