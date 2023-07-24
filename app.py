@@ -127,7 +127,7 @@ def main():
 def generate_and_play(audio_text):
     set_api_key(ELEVENLABS_API_KEY)
     # Generate audio using ElevenLabs
-    audio = generate(text=audio_text, voice=getVoice("Alli"), 
+    audio = generate(text=audio_text, voice=getVoice("Bella"), 
                      model="eleven_monolingual_v1")
 
     # Play the audio
