@@ -101,8 +101,11 @@ def main():
 
     st.info("You can ask a question like...")
     st.info("- How do I generate solutions leveraging The New Dev Order?")
+    st.info("- Why is it important for Founders who want to build a solution to meet with a Bounty Manager first?")    
     st.info("- How might I leverage the do I make money as a Developer in The New Dev Order?")
     st.info("- How do I make money as a UX Designer in The New Dev Order?")
+    st.info("- Why is a Developer considered a Bounty Hunter in The New Dev Order?")
+    st.info("- What is the Bounty Design Document and why should I care as a Founder?")
     st.info("- How do I join The New Dev Order?")    
     text_input = st.text_input("What would you like to know? Type your question below...") 
     if st.button("Ask Question"):
