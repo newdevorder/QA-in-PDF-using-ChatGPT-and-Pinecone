@@ -38,7 +38,7 @@ def doc_preprocessing():
     docs_split = text_splitter.split_documents(docs)
     return docs_split
 
-@st.cache_resource
+# @st.cache_resource
 def embedding_db():
     # we use the openAI embedding model
     embeddings = OpenAIEmbeddings()
