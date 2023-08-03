@@ -1,7 +1,4 @@
 import os
-from langchain.document_loaders import DirectoryLoader
-from langchain.text_splitter import CharacterTextSplitter
-import pinecone 
 from langchain.vectorstores import Pinecone
 from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.chains import RetrievalQA
@@ -14,51 +11,36 @@ from elevenlabs.api import Voices
 
 load_dotenv()
 
-PINECONE_API_KEY = os.getenv('PINECONE_API_KEY')
-PINECONE_ENV = os.getenv('PINECONE_ENV')
 OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
+PINECONE_API_KEY = os.getenv('PINECONE_API_KEY')
+PINECONE_INDEX = os.getenv('PINECONE_INDEX')
+PINECONE_ENV = os.getenv('PINECONE_ENV')
 CREATIVITY = os.getenv('CREATIVITY')
+ENABLE_ELEVENTLABS = os.getenv('ENABLE_ELEVENTLABS')
 ELEVENLABS_API_KEY = os.getenv('ELEVENLABS_API_KEY')
 STABILITY = os.getenv('STABILITY')
 SIMILARITY_BOOST = os.getenv('SIMILARITY_BOOST')
 FINE_TUNE_VOICES = os.getenv('FINE_TUNE_VOICES')
-ENABLE_ELEVENTLABS = os.getenv('ENABLE_ELEVENTLABS')
 
-def doc_preprocessing():
-    loader = DirectoryLoader(
-        'data/',
-        glob='**/*.pdf',     # only the PDFs
-        show_progress=True
-    )
-    docs = loader.load()
-    text_splitter = CharacterTextSplitter(
-        chunk_size=1000, 
-        chunk_overlap=0
-    )
-    docs_split = text_splitter.split_documents(docs)
-    return docs_split
 
-# @st.cache_resource
-def embedding_db():
+@st.cache_resource
+def get_doc_db():
     # we use the openAI embedding model
-    embeddings = OpenAIEmbeddings()
-    pinecone.init(
-        api_key=PINECONE_API_KEY,
-        environment=PINECONE_ENV
+    embeddings = OpenAIEmbeddings(
+        openai_api_key=OPENAI_API_KEY
     )
-    docs_split = doc_preprocessing()
-    doc_db = Pinecone.from_documents(
-        docs_split, 
-        embeddings, 
-        index_name='newdevorder'
-    )
+
+    # Get pinecone index
+    doc_db = Pinecone.from_existing_index(PINECONE_INDEX, embeddings)
+    
     return doc_db
 
 llm = ChatOpenAI(
     openai_api_key=OPENAI_API_KEY,
     temperature=CREATIVITY
 )
-doc_db = embedding_db()
+
+doc_db = get_doc_db()
 
 def retrieval_answer(query):
     qa = RetrievalQA.from_chain_type(
